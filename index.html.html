@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#eceff2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0b1218" media="(prefers-color-scheme: dark)" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="死亡推定時刻" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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" />
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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" />
+<link rel="manifest" href="data:application/octet-stream;base64,eyJiYWNrZ3JvdW5kX2NvbG9yIjoiI2VjZWZmMiIsImRlc2NyaXB0aW9uIjoi55u06IW45rip77yISGVuc3NnZeazle+8ieOBqOatu+aWkeODu+atu+W+jOehrOebtOODu+inkuiGnOa3t+a/geOBruaJgOimi+OBi+OCieatu+W+jOe1jOmBjuaZgumWk+OCkuaOqOWumuOBl+OAgeaknOimluiomOmMsuOBqOOBl+OBpuaui+OBmeOBn+OCgeOBruODhOODvOODqyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiaWNvbnMiOlt7InB1cnBvc2UiOiJhbnkiLCJzaXplcyI6IjE5MngxOTIiLCJzcmMiOiJpY29uLTE5Mi5wbmciLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJwdXJwb3NlIjoiYW55Iiwic2l6ZXMiOiI1MTJ4NTEyIiwic3JjIjoiaWNvbi01MTIucG5nIiwidHlwZSI6ImltYWdlL3BuZyJ9LHsicHVycG9zZSI6Im1hc2thYmxlIiwic2l6ZXMiOiI1MTJ4NTEyIiwic3JjIjoiaWNvbi01MTIucG5nIiwidHlwZSI6ImltYWdlL3BuZyJ9XSwibGFuZyI6ImphIiwibmFtZSI6Iuatu+S6oeaOqOWumuaZguWIu+ioiOeul+OCouODl+ODqiIsIm9yaWVudGF0aW9uIjoicG9ydHJhaXQiLCJzY29wZSI6Ii4uLyIsInNob3J0X25hbWUiOiLmrbvkuqHmjqjlrprmmYLliLsiLCJzdGFydF91cmwiOiIuLi9pbmRleC5odG1sIiwidGhlbWVfY29sb3IiOiIjMGQ1YTY2In0=" />
+<title>死亡推定時刻計算アプリ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+--bg: #eceff2;
+--panel: #ffffff;
+--panel-2: #f4f6f8;
+--ink: #141e28;
+--muted: #54636f;
+--line: #ccd5dd;
+--line-strong: #9fb0bd;
+--accent: #0d5a66;
+--accent-strong: #08444e;
+--accent-soft: #e0eef0;
+--accent-ink: #ffffff;
+--warn-bg: #fdf1d7;
+--warn-line: #d9a83c;
+--warn-ink: #6d4c00;
+--danger: #a12622;
+--danger-bg: #fbe9e8;
+--ok: #1d6b3c;
+--record-bg: #101d26;
+--record-ink: #e9f1f5;
+--record-line: #33505f;
+--bar-track: #dde4ea;
+--shadow: 0 1px 2px rgba(16, 32, 44,.08), 0 4px 14px rgba(16, 32, 44,.06);
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--bg: #0b1218;
+--panel: #151f29;
+--panel-2: #1b2833;
+--ink: #e8eff4;
+--muted: #9db1c0;
+--line: #2c3d4b;
+--line-strong: #476174;
+--accent: #2e8b9a;
+--accent-strong: #57b3c2;
+--accent-soft: #12333b;
+--accent-ink: #ffffff;
+--warn-bg: #3a2d10;
+--warn-line: #a97f22;
+--warn-ink: #f2cd7e;
+--danger: #ff9d97;
+--danger-bg: #3d1a18;
+--ok: #6fce92;
+--record-bg: #0a151d;
+--record-ink: #e9f1f5;
+--record-line: #2c4756;
+--bar-track: #24333f;
+--shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+}
+}
+* { box-sizing: border-box;}
+html { -webkit-text-size-adjust: 100%;}
+body {
+margin: 0;
+background: var(--bg);
+color: var(--ink);
+font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", sans-serif;
+font-size: 17px;
+line-height: 1.65;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 20px 16px 64px;}
+
+header.page-head { padding: 10px 2px 18px;}
+header.page-head h1 {
+font-size: 26px; font-weight: 900; letter-spacing:.02em; margin: 0 0 6px;
+}
+header.page-head p { margin: 0; color: var(--muted); font-size: 15px; max-width: 44em;}
+.head-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
+.head-badges span {
+font-size: 13px; font-weight: 700; color: var(--accent-strong);
+background: var(--accent-soft); border: 1px solid var(--accent);
+padding: 4px 12px; border-radius: 999px;
+}
+
+section.panel {
+background: var(--panel);
+border: 1px solid var(--line);
+border-radius: 10px;
+box-shadow: var(--shadow);
+padding: 22px 20px 24px;
+margin-bottom: 18px;
+}
+section.panel > h2 {
+font-size: 19px; font-weight: 900; margin: 0 0 4px;
+display: flex; align-items: baseline; gap: 10px;
+}
+section.panel > h2 > .step {
+font-family: "Noto Sans Mono", monospace; font-size: 13px; font-weight: 700;
+color: var(--accent-ink); background: var(--accent);
+border-radius: 4px; padding: 2px 8px; position: relative; top: -2px;
+}
+section.panel >.lead { margin: 0 0 16px; color: var(--muted); font-size: 14.5px;}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;}
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;}
+@media (max-width: 640px) {
+.grid2,.grid3 { grid-template-columns: 1fr;}
+}
+.field label {
+display: block; font-weight: 700; font-size: 15px; margin-bottom: 6px;
+}
+.field label > .unit { color: var(--muted); font-weight: 500; font-size: 13.5px;}
+.field input[type="text"],
+.field input[type="number"],
+.field input[type="datetime-local"] {
+width: 100%; min-height: 60px;
+font: inherit; font-size: 19px; font-weight: 500;
+color: var(--ink); background: var(--panel-2);
+border: 2px solid var(--line-strong); border-radius: 8px;
+padding: 10px 14px;
+}
+.field input:focus { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent);}
+.field > .hint { font-size: 13px; color: var(--muted); margin-top: 5px;}
+
+/* 大型選択肢（手袋操作対応） */
+.opts { display: grid; gap: 10px;}
+.opts.cols2 { grid-template-columns: 1fr 1fr;}
+@media (max-width: 640px) {.opts.cols2 { grid-template-columns: 1fr;}}
+.opt { position: relative; display: block; cursor: pointer;}
+.opt input {
+position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+width: 28px; height: 28px; margin: 0; z-index: 1; cursor: pointer;
+appearance: none; -webkit-appearance: none;
+border: 3px solid var(--line-strong); border-radius: 50%;
+background: var(--panel);
+}
+.opt input:checked {
+border-color: var(--accent); background: var(--accent);
+box-shadow: inset 0 0 0 5px var(--panel);
+}
+.opt > .card {
+display: block; min-height: 64px;
+border: 2px solid var(--line-strong); border-radius: 8px;
+background: var(--panel-2); padding: 13px 16px 13px 58px;
+transition: border-color.12s, background.12s;
+}
+.opt > .card > .t { display: block; font-weight: 700; font-size: 17px; line-height: 1.4;}
+.opt > .card > .d { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; line-height: 1.5;}
+.opt input:checked + .card { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent);}
+.opt input:checked + .card > .t { color: var(--accent-strong);}
+.opt input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px;}
+.opt.none > .card > .t { font-weight: 500; color: var(--muted);}
+
+.subgroup { margin-top: 18px;}
+.subgroup >.sg-title { font-weight: 700; font-size: 15.5px; margin-bottom: 8px;}
+.seg { display: flex; flex-wrap: wrap; gap: 10px;}
+.seg > .opt { flex: 1 1 140px;}
+.seg > .opt > .card { min-height: 58px; text-align: left; padding: 12px 12px 12px 54px;}
+.seg > .opt > .card > .t { font-size: 16.5px;}
+
+.calc-btn {
+width: 100%; min-height: 68px; margin: 4px 0 18px;
+font: inherit; font-size: 21px; font-weight: 900; letter-spacing:.04em;
+color: var(--accent-ink); background: var(--accent);
+border: none; border-radius: 10px; cursor: pointer;
+box-shadow: var(--shadow);
+}
+.calc-btn:active { background: var(--accent-strong);}
+.calc-btn:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 2px;}
+
+.msg {
+display: none; border-radius: 8px; padding: 14px 16px; margin-bottom: 18px;
+font-size: 15.5px; font-weight: 500;
+}
+.msg.show { display: block;}
+.msg.err { background: var(--danger-bg); color: var(--danger); border: 1.5px solid var(--danger);}
+.msg.warn { background: var(--warn-bg); color: var(--warn-ink); border: 1.5px solid var(--warn-line);}
+
+/* 結果 */
+#result-panel { display: none;}
+#result-panel.show { display: block;}
+.verdict {
+background: var(--record-bg); color: var(--record-ink);
+border-radius: 10px; padding: 22px 20px; margin-bottom: 18px;
+}
+.verdict > .v-label { font-size: 14px; font-weight: 700; letter-spacing:.08em; opacity:.75; margin: 0 0 4px;}
+.verdict > .v-main { font-size: 27px; font-weight: 900; line-height: 1.35; margin: 0;}
+.verdict > .v-main > .num { font-family: "Noto Sans Mono", monospace;}
+.verdict > .v-sub { margin: 12px 0 0; font-size: 16.5px; line-height: 1.6;}
+.verdict > .v-sub > .num { font-family: "Noto Sans Mono", monospace; font-weight: 700;}
+.verdict > .v-anchor { margin: 6px 0 0; font-size: 13.5px; opacity:.72;}
+@media (max-width: 640px) {.verdict > .v-main { font-size: 23px;}}
+
+.conflict {
+display: none; background: var(--warn-bg); color: var(--warn-ink);
+border: 1.5px solid var(--warn-line); border-radius: 8px;
+padding: 14px 16px; margin-bottom: 18px; font-size: 15.5px; font-weight: 500;
+}
+.conflict.show { display: block;}
+
+.window-box {
+display: none; background: var(--accent-soft); color: var(--ink);
+border: 1.5px solid var(--accent); border-radius: 8px;
+padding: 14px 16px; margin-bottom: 18px; font-size: 15.5px; font-weight: 500;
+}
+.window-box.show { display: block;}
+.window-box.conflict-window { background: var(--warn-bg); color: var(--warn-ink); border-color: var(--warn-line);}
+
+h3.blk { font-size: 16.5px; font-weight: 900; margin: 22px 0 10px;}
+h3.blk:first-of-type { margin-top: 4px;}
+
+.bars { display: grid; gap: 12px;}
+.bar-row { display: grid; grid-template-columns: 108px 1fr 128px; gap: 10px; align-items: center;}
+@media (max-width: 640px) {.bar-row { grid-template-columns: 88px 1fr 104px;}}
+.bar-row > .b-name { font-size: 14.5px; font-weight: 700;}
+.bar-row > .b-track { position: relative; height: 22px; background: var(--bar-track); border-radius: 4px;}
+.bar-row > .b-track > .b-fill {
+position: absolute; top: 0; bottom: 0; border-radius: 4px;
+background: var(--accent); opacity:.85; min-width: 3px;
+}
+.bar-row.combined > .b-track > .b-fill { background: var(--warn-line); opacity: 1;}
+.bar-row > .b-val { font-family: "Noto Sans Mono", monospace; font-size: 13.5px; text-align: right;}
+.axis-note { font-size: 12.5px; color: var(--muted); margin-top: 6px; text-align: right;}
+
+.basis-list { display: grid; gap: 12px;}
+.basis {
+border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--panel-2);
+}
+.basis > .b-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 14px; align-items: baseline;}
+.basis > .b-head > .b-name { font-weight: 900; font-size: 16px;}
+.basis > .b-head > .b-range { font-family: "Noto Sans Mono", monospace; font-weight: 700; font-size: 15.5px; color: var(--accent-strong);}
+.basis > .b-head > .b-range.na { color: var(--muted); font-family: inherit; font-weight: 500;}
+.basis p { margin: 6px 0 0; font-size: 14.5px; color: var(--muted);}
+.basis p b { color: var(--ink);}
+
+.record-box {
+background: var(--record-bg); color: var(--record-ink);
+border-radius: 10px; padding: 20px;
+}
+.record-box h3 { margin: 0 0 12px; font-size: 16px; font-weight: 900; letter-spacing:.05em;}
+.record-box pre {
+margin: 0; white-space: pre-wrap; word-break: break-word;
+font-family: "Noto Sans Mono", ui-monospace, monospace;
+font-size: 13.8px; line-height: 1.75;
+}
+.record-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;}
+@media (max-width: 640px) {.record-actions { grid-template-columns: 1fr;}}
+.record-actions button {
+min-height: 60px; font: inherit; font-size: 17px; font-weight: 900;
+border-radius: 8px; cursor: pointer; border: 2px solid var(--record-line);
+background: transparent; color: var(--record-ink); padding: 10px;
+}
+.record-actions > button.primary { background: var(--record-ink); color: var(--record-bg); border-color: var(--record-ink);}
+.record-actions button:active { opacity:.8;}
+.copy-done { display: none; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--ok);}
+.copy-done.show { display: block;}
+
+.notes {
+background: var(--warn-bg); border: 1.5px solid var(--warn-line); border-radius: 10px;
+padding: 18px 20px; color: var(--warn-ink);
+}
+.notes h2 { font-size: 16.5px; font-weight: 900; margin: 0 0 8px;}
+.notes ul { margin: 0; padding-left: 1.3em; font-size: 14.5px;}
+.notes li { margin: 5px 0;}
+.notes li b { font-weight: 900;}
+
+footer.page-foot { color: var(--muted); font-size: 13px; padding: 4px 2px 0;}
+footer.page-foot p { margin: 4px 0;}
+
+@media print {
+body { background: #fff;}
+.calc-btn,.record-actions, header.page-head > .head-badges { display: none;}
+section.panel { box-shadow: none; break-inside: avoid;}
+}
+
+/* 起動失敗時のフォールバック（通常は非表示） */
+#boot-fallback {
+display: none; position: fixed; inset: 0; z-index: 50;
+background: var(--bg); color: var(--ink);
+padding: 32px 20px; overflow: auto;
+}
+#boot-fallback.show { display: block;}
+#boot-fallback > .bf-box {
+max-width: 560px; margin: 8vh auto 0; background: var(--panel);
+border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow);
+padding: 24px 22px;
+}
+#boot-fallback h2 { font-size: 19px; font-weight: 900; margin: 0 0 10px;}
+#boot-fallback p { margin: 0 0 12px; font-size: 15px; color: var(--muted);}
+#boot-fallback button {
+width: 100%; min-height: 56px; font: inherit; font-size: 17px; font-weight: 900;
+color: var(--accent-ink); background: var(--accent);
+border: none; border-radius: 8px; cursor: pointer;
+}
+</style>
+<script>
+/* 本体スクリプトが起動しなかった場合に、真っ白な画面で止めず再読み込み導線を出す */
+window.__bootWatchdog = setTimeout(function () {
+if (!window.__appBooted) {
+var f = document.getElementById("boot-fallback");
+if (f) f.className = "show";
+}
+}, 5000);
+</script>
+</head>
+<body>
+<div id="boot-fallback" aria-live="polite">
+<div class="bf-box">
+<h2>画面を表示できませんでした</h2>
+<p>読み込みが完了しませんでした。通信環境を確認のうえ、再読み込みをお試しください。再読み込みしても表示されない場合は、ブラウザ（Safari）で開き直してください。</p>
+<button type="button" id="bootReloadBtn">再読み込みする</button>
+</div>
+</div>
+<div class="wrap">
+
+<header class="page-head">
+<h1>死亡推定時刻アプリ</h1>
+<p>直腸温（Henssge法）による推定に、死斑・死後硬直・角膜混濁の所見を組み合わせ、各所見が示す死後経過時間の範囲を重ね合わせて総合判定します。最終確認日時が入力された場合は、死亡はその日時より後・発見日時より前に起きたものとして、推定死亡時刻の範囲を「最終確認日時〜発見日時」の区間と重ねて絞り込みます。入力した所見と推定根拠は、そのまま検視記録として残せる形式で表示されます。</p>
+</header>
+
+<!-- 1. 記録情報 -->
+<section class="panel" aria-labelledby="h-record">
+<h2 id="h-record"><span class="step">1</span>記録情報</h2>
+<p class="lead">最終確認・発見・検視の日時です。結果表示・記録テキストにそのまま転記されます。最終確認日時は総合判定の絞り込みにも使われます。</p>
+<div class="grid2">
+<div class="field">
+<label for="lastSeenAt">最終確認日時（最後に生存が確認された日時）</label>
+<input type="datetime-local" id="lastSeenAt" />
+<p class="hint">死亡はこの日時より後に起きたはずです。入力すると、所見から求めた推定死亡時刻を「最終確認日時〜発見日時」の区間と重ねて絞り込み、総合判定に反映します。不明な場合は空欄のままにしてください。</p>
+</div>
+<div class="field">
+<label for="foundAt">発見日時</label>
+<input type="datetime-local" id="foundAt" />
+<p class="hint">死亡は発見日時より前に起きたはずです。最終確認日時と併せて、推定死亡時刻の上限を定めます。</p>
+</div>
+<div class="field">
+<label for="examAt">検視日時（推定の基準時刻）</label>
+<input type="datetime-local" id="examAt" />
+<p class="hint">推定死亡時刻は、この検視日時から死後経過時間を差し引いて算出します。</p>
+</div>
+</div>
+</section>
+
+<!-- 2. 体温 -->
+<section class="panel" aria-labelledby="h-temp">
+<h2 id="h-temp"><span class="step">2</span>体温による推定（Henssge法）</h2>
+<p class="lead">直腸温・環境温・体重と、着衣・環境の補正係数から死後経過時間を算出します（Henssgeのノモグラムの数式近似）。95%許容限界として±2.8時間を併せて範囲化します。</p>
+<div class="grid3">
+<div class="field">
+<label for="rectalTemp">直腸温 <span class="unit">（℃）</span></label>
+<input type="number" id="rectalTemp" inputmode="decimal" step="0.1" min="0" max="45" placeholder="例：30.5" />
+</div>
+<div class="field">
+<label for="ambientTemp">環境温 <span class="unit">（℃）</span></label>
+<input type="number" id="ambientTemp" inputmode="decimal" step="0.1" min="-20" max="45" placeholder="例：20.0" />
+<p class="hint">遺体周囲の気温。死後変動した場合はその旨を備考に記録してください。</p>
+</div>
+<div class="field">
+<label for="weight">体重 <span class="unit">（kg）</span></label>
+<input type="number" id="weight" inputmode="decimal" step="0.5" min="3" max="300" placeholder="例：65" />
+</div>
+</div>
+<div class="subgroup">
+<div class="sg-title">着衣・環境の補正係数（Henssge標準表）</div>
+<div class="opts cols2" role="radiogroup" aria-label="補正係数">
+<label class="opt"><input type="radio" name="factor" value="1.0" checked /><span class="card"><span class="t">裸体 ― 静止した空気中（係数 1.0）</span><span class="d">基準条件。着衣なし、無風の室内等。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="0.75" /><span class="card"><span class="t">裸体 ― 移動する空気中（係数 0.75）</span><span class="d">風のある屋外等。冷却は速くなります。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="1.1" /><span class="card"><span class="t">薄い衣服 1〜2枚（係数 1.1）</span><span class="d">静止した空気中。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="1.2" /><span class="card"><span class="t">衣服 2〜3枚（係数 1.2）</span><span class="d">静止した空気中。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="1.3" /><span class="card"><span class="t">衣服 3〜4枚・厚手（係数 1.3）</span><span class="d">静止した空気中。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="1.8" /><span class="card"><span class="t">厚い寝具・布団に覆われた状態（係数 1.8）</span><span class="d">保温性が高く、冷却は遅くなります。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="0.5" /><span class="card"><span class="t">水中 ― 静水（係数 0.5）</span><span class="d">水中では冷却が速くなります。</span></span></label>
+<label class="opt"><input type="radio" name="factor" value="0.35" /><span class="card"><span class="t">水中 ― 流水（係数 0.35）</span><span class="d">河川等の流水中。</span></span></label>
+</div>
+</div>
+</section>
+
+<!-- 3. 死斑 -->
+<section class="panel" aria-labelledby="h-livor">
+<h2 id="h-livor"><span class="step">3</span>死斑の所見</h2>
+<p class="lead">出現の程度と指圧による消退の有無（固定の有無）を選択してください。</p>
+<div class="opts" role="radiogroup" aria-label="死斑の段階">
+<label class="opt none"><input type="radio" name="livor" value="" checked /><span class="card"><span class="t">所見なし（未入力）</span></span></label>
+<label class="opt"><input type="radio" name="livor" value="absent" /><span class="card"><span class="t">死斑未出現</span><span class="d">死斑の出現は通常、死後30分〜2時間頃から始まります。</span></span></label>
+<label class="opt"><input type="radio" name="livor" value="blanch" /><span class="card"><span class="t">出現 ― 指圧により完全に消退する</span><span class="d">圧迫で血液が移動し死斑が消失する段階。固定していません。</span></span></label>
+<label class="opt"><input type="radio" name="livor" value="partial" /><span class="card"><span class="t">発達 ― 指圧により不完全に消退する</span><span class="d">圧迫しても一部が残る、固定への移行期。</span></span></label>
+<label class="opt"><input type="radio" name="livor" value="fixed" /><span class="card"><span class="t">固定 ― 指圧により消退しない</span><span class="d">血管外への血液浸潤により固定した段階。</span></span></label>
+</div>
+</section>
+
+<!-- 4. 死後硬直 -->
+<section class="panel" aria-labelledby="h-rigor">
+<h2 id="h-rigor"><span class="step">4</span>死後硬直の所見</h2>
+<p class="lead">硬直の発現部位と程度を選択してください。硬直の経過は環境温に強く影響されます（高温では発現・緩解とも速く、低温では遅くなります）。</p>
+<div class="opts" role="radiogroup" aria-label="死後硬直の段階">
+<label class="opt none"><input type="radio" name="rigor" value="" checked /><span class="card"><span class="t">所見なし（未入力）</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="absent" /><span class="card"><span class="t">硬直なし（弛緩状態）</span><span class="d">死後の一次弛緩の段階。硬直は通常、死後2〜4時間頃から発現します。</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="onset" /><span class="card"><span class="t">発現開始 ― 下顎・小関節のみ</span><span class="d">顎関節や手指などの小関節に硬直を認める段階。</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="spreading" /><span class="card"><span class="t">発達期 ― 全身へ拡大中</span><span class="d">大関節へ及びつつあるが、なお増強途上の段階。</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="complete" /><span class="card"><span class="t">完成期 ― 全身性で強い硬直</span><span class="d">全身の関節が強く硬直し、最強の状態が持続する段階。</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="resolving" /><span class="card"><span class="t">緩解期 ― 一部が緩み始めている</span><span class="d">腐敗の進行に伴い硬直が解け始めた段階。</span></span></label>
+<label class="opt"><input type="radio" name="rigor" value="resolved" /><span class="card"><span class="t">消失 ― 硬直は完全に解けている</span><span class="d">全身の硬直が緩解した段階。</span></span></label>
+</div>
+</section>
+
+<!-- 5. 角膜混濁 -->
+<section class="panel" aria-labelledby="h-cornea">
+<h2 id="h-cornea"><span class="step">5</span>角膜混濁の所見</h2>
+<p class="lead">角膜の混濁の程度と、開眼・閉眼の状態を併せて選択してください。閉眼状態では混濁の進行が遅れるため、状態により適用する時間範囲が異なります。</p>
+<div class="subgroup" style="margin-top:0;">
+<div class="sg-title">開眼・閉眼の状態</div>
+<div class="seg" role="radiogroup" aria-label="開眼・閉眼の状態">
+<label class="opt"><input type="radio" name="eye" value="open" checked /><span class="card"><span class="t">開眼</span></span></label>
+<label class="opt"><input type="radio" name="eye" value="closed" /><span class="card"><span class="t">閉眼</span></span></label>
+<label class="opt"><input type="radio" name="eye" value="unknown" /><span class="card"><span class="t">不明</span></span></label>
+</div>
+</div>
+<div class="subgroup">
+<div class="sg-title">角膜混濁の程度</div>
+<div class="opts" role="radiogroup" aria-label="角膜混濁の程度">
+<label class="opt none"><input type="radio" name="cornea" value="" checked /><span class="card"><span class="t">所見なし（未入力）</span></span></label>
+<label class="opt"><input type="radio" name="cornea" value="clear" /><span class="card"><span class="t">透明</span><span class="d">混濁を認めず、瞳孔が明瞭に透見できます。</span></span></label>
+<label class="opt"><input type="radio" name="cornea" value="mild" /><span class="card"><span class="t">軽度混濁</span><span class="d">薄く混濁しますが、瞳孔はなお透見できます。</span></span></label>
+<label class="opt"><input type="radio" name="cornea" value="moderate" /><span class="card"><span class="t">中等度混濁 ― 瞳孔の透見が困難</span><span class="d">混濁が進み、瞳孔の輪郭が判別しにくい状態。</span></span></label>
+<label class="opt"><input type="radio" name="cornea" value="severe" /><span class="card"><span class="t">高度混濁 ― 瞳孔透見不能</span><span class="d">角膜全体が混濁し、瞳孔が透見できない状態。</span></span></label>
+</div>
+</div>
+</section>
+
+<div class="msg err" id="errBox" role="alert"></div>
+<div class="msg warn" id="warnBox" role="status"></div>
+
+<button class="calc-btn" id="calcBtn" type="button">総合判定を行う</button>
+
+<!-- 6. 結果 -->
+<section class="panel" id="result-panel" aria-labelledby="h-result">
+<h2 id="h-result"><span class="step">6</span>総合判定結果</h2>
+<p class="lead">各手法・所見が示す死後経過時間の範囲を重ね合わせ、最終確認日時が入力された場合は「最終確認日時〜発見日時」の区間とも重ねて絞り込んだ結果です。単一の時刻を断定するものではありません。</p>
+
+<div class="verdict">
+<p class="v-label">総合推定 ― 死後経過時間</p>
+<p class="v-main" id="vPmi">―</p>
+<p class="v-sub" id="vDeath">―</p>
+<p class="v-anchor" id="vAnchor">―</p>
+</div>
+
+<div class="window-box" id="windowBox"></div>
+
+<div class="conflict" id="conflictBox"></div>
+
+<h3 class="blk">各所見の示す範囲（死後経過時間）</h3>
+<div class="bars" id="bars"></div>
+<p class="axis-note" id="axisNote"></p>
+
+<h3 class="blk">推定根拠の内訳</h3>
+<div class="basis-list" id="basisList"></div>
+
+<h3 class="blk">検視記録テキスト</h3>
+<div class="record-box">
+<h3>記録用テキスト（所見・根拠・注意書きを含む）</h3>
+<pre id="recordText"></pre>
+<div class="record-actions">
+<button type="button" class="primary" id="copyBtn">記録テキストをコピー</button>
+<button type="button" id="dlBtn">テキストファイルで保存</button>
+</div>
+<p class="copy-done" id="copyDone">コピーしました。報告書等へ貼り付けてご利用ください。</p>
+</div>
+</section>
+
+<!-- 注意書き -->
+<section class="notes" aria-labelledby="h-notes">
+<h2 id="h-notes">利用上の注意（推定の性質と限界）</h2>
+<ul>
+<li><b>本推定は「幅」をもって示される参考値であり、死亡時刻を断定するものではありません。</b>捜査・鑑定においては、最終防衛線・目撃情報・通信記録等の他の証拠と併せて判断してください。</li>
+<li>体温法（Henssge法）は、死亡時の体温が37.2℃であったこと、環境温がほぼ一定であったことを前提とする近似計算です。発熱・低体温での死亡、環境温の変動、日射、水没後の移動等があった場合は誤差が大きくなります。</li>
+<li>死斑・死後硬直・角膜混濁の時間範囲は、法医学の標準的な目安を基にした概略値です。環境温、死因、体格、死後の体位変換等により大きく前後します。</li>
+<li><b>最終確認日時による絞り込み：</b>最終確認日時が入力された場合、死亡はその日時より後、発見日時より前に起きたものとして、所見による推定死亡時刻の範囲をその区間と重ねて絞り込みます。重ならない場合は矛盾として警告します。その際は、最終確認の経緯（誰が・どのように生存を確認したか）、発見日時の正確さ、所見や日時の入力誤り等を確認してください。</li>
+<li>各所見の範囲が重ならない（矛盾する）場合は、環境条件の変化、所見の取り違え、死後経過の特殊性等を疑い、法医学者への鑑定依頼を検討してください。</li>
+<li>本ツールは法医学的鑑定の代替ではありません。入力値と所見は現場で再確認のうえ記録してください。</li>
+</ul>
+</section>
+
+<footer class="page-foot">
+<p>計算手法：Henssge法（直腸温ノモグラムの数式近似、95%許容限界 ±2.8時間）／死斑・死後硬直・角膜混濁は法医学の標準的経過表に基づく範囲判定／最終確認日時入力時は「最終確認日時〜発見日時」の区間との重なりによる絞り込み。</p>
+<p>入力内容はこの端末上でのみ処理され、外部へ送信されることはありません。再読み込みすると入力は消去されます。必要な記録は結果表示のテキストで保存してください。</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+"use strict";
+
+function $(id) { return document.getElementById(id);}
+function radioVal(name) {
+var el = document.querySelector('input[name="' + name + '"]:checked');
+return el? el.value: "";
+}
+function pad(n) { return (n < 10? "0": "") + n;}
+function fmtDateTime(d) {
+return d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日 " +
+pad(d.getHours()) + ":" + pad(d.getMinutes());
+}
+function fmtHours(h) {
+var r = Math.round(h * 10) / 10;
+var s = (r % 1 === 0? String(r | 0): String(r)) + "時間";
+if (r >= 24) {
+var d = Math.round((r / 24) * 10) / 10;
+s += "（約" + (d % 1 === 0? String(d | 0): String(d)) + "日）";
+}
+return s;
+}
+function fmtRange(lo, hi) { return fmtHours(lo) + " 〜 " + fmtHours(hi);}
+
+/* ---------- 所見の段階 → 死後経過時間の範囲（時間） ---------- */
+var LIVOR = {
+absent: { label: "死斑未出現", lo: 0, hi: 2,
+basis: "死斑は通常、死後30分〜2時間頃から出現し始めるため、未出現であれば死後早期と考えられます。"},
+blanch: { label: "出現 ― 指圧により完全に消退", lo: 0.5, hi: 6,
+basis: "指圧により死斑が完全に消退するのは、血液がなお血管内を移動できる段階で、おおむね死後6時間頃までとされます。"},
+partial: { label: "発達 ― 指圧により不完全に消退", lo: 4, hi: 12,
+basis: "指圧で消退しきらなくなるのは固定への移行期で、おおむね死後4〜12時間頃に相当します。"},
+fixed: { label: "固定 ― 指圧により消退しない", lo: 10, hi: 48,
+basis: "死斑の固定はおおむね死後10時間頃から始まります。上限は腐敗の進行で死斑の判別が困難になる時期を目安としています。"}
+};
+var RIGOR = {
+absent: { label: "硬直なし（弛緩状態）", lo: 0, hi: 3,
+basis: "死後硬直は通常、死後2〜4時間頃から発現します。未発現であれば死後早期と考えられます（高温環境では発現が早まります）。"},
+onset: { label: "発現開始 ― 下顎・小関節のみ", lo: 2, hi: 6,
+basis: "硬直は下顎・小関節から発現し、おおむね死後2〜6時間頃の所見です。"},
+spreading: { label: "発達期 ― 全身へ拡大中", lo: 4, hi: 10,
+basis: "硬直が全身へ拡大しつつある段階で、おおむね死後4〜10時間頃に相当します。"},
+complete: { label: "完成期 ― 全身性で強い硬直", lo: 6, hi: 20,
+basis: "全身性の強い硬直はおおむね死後6時間頃から完成し、その後しばらく持続します。"},
+resolving: { label: "緩解期 ― 一部が緩み始めている", lo: 16, hi: 36,
+basis: "硬直の緩解は腐敗の進行とともに始まり、おおむね死後16〜36時間頃の所見です（環境温により大きく変動します）。"},
+resolved: { label: "消失 ― 硬直は完全に解けている", lo: 30, hi: 72,
+basis: "硬直の完全な緩解はおおむね死後30時間以降にみられます。上限は低温環境で緩解が遅れる場合を考慮した目安です。"}
+};
+var CORNEA = {
+open: {
+clear: { label: "透明（開眼）", lo: 0, hi: 10},
+mild: { label: "軽度混濁（開眼）", lo: 6, hi: 24},
+moderate: { label: "中等度混濁 ― 瞳孔の透見が困難（開眼）", lo: 18, hi: 48},
+severe: { label: "高度混濁 ― 瞳孔透見不能（開眼）", lo: 36, hi: 96}
+},
+closed: {
+clear: { label: "透明（閉眼）", lo: 0, hi: 24},
+mild: { label: "軽度混濁（閉眼）", lo: 18, hi: 48},
+moderate: { label: "中等度混濁 ― 瞳孔の透見が困難（閉眼）", lo: 36, hi: 72},
+severe: { label: "高度混濁 ― 瞳孔透見不能（閉眼）", lo: 60, hi: 120}
+},
+unknown: {
+clear: { label: "透明（開閉眼不明）", lo: 0, hi: 24},
+mild: { label: "軽度混濁（開閉眼不明）", lo: 6, hi: 48},
+moderate: { label: "中等度混濁 ― 瞳孔の透見が困難（開閉眼不明）", lo: 18, hi: 72},
+severe: { label: "高度混濁 ― 瞳孔透見不能（開閉眼不明）", lo: 36, hi: 120}
+}
+};
+var CORNEA_BASIS = "角膜は死後、乾燥とともに混濁が進行します。開眼では進行が速く、閉眼では遅れます。混濁の程度と開閉眼の状態から範囲を推定しています（乾燥の強い環境では早まります）。";
+
+/* ---------- Henssge法 ---------- */
+function henssge(Tr, Ta, W, f) {
+if (Ta >= 37.2) return { ok: false, reason: "環境温が37.2℃以上のため、体温法は適用できません。"};
+if (Tr <= Ta) return { ok: false, reason: "直腸温が環境温以下のため、体温法の適用限界を超えています（死後長時間の経過が考えられます）。死斑・硬直・角膜等の所見で判定してください。"};
+var Q = (Tr - Ta) / (37.2 - Ta);
+var B = -1.2815 * Math.pow(f * W, -0.625) + 0.0284;
+if (B >= 0) return { ok: false, reason: "入力条件では体温法の計算が成立しません。"};
+function qOf(t) { return 1.25 * Math.exp(B * t) - 0.25 * Math.exp(5 * B * t);}
+if (Q >= 1) {
+return { ok: true, t: 0, lo: 0, hi: 2.8, Q: Q, early: true};
+}
+if (qOf(200) > Q) return { ok: false, reason: "直腸温が環境温に近づいており、体温法の適用限界（おおむね死後2日以上）を超えています。"};
+var lo = 0, hi = 200, mid = 0, i;
+for (i = 0; i < 100; i++) {
+mid = (lo + hi) / 2;
+if (qOf(mid) > Q) { lo = mid;} else { hi = mid;}
+}
+var t = (lo + hi) / 2;
+return { ok: true, t: t, lo: Math.max(0, t - 2.8), hi: t + 2.8, Q: Q, early: false};
+}
+
+/* ---------- メイン計算 ---------- */
+var state = { computed: false, record: ""};
+
+function calculate() {
+var errs = [], warns = [];
+var examStr = $("examAt").value;
+var examDate = examStr? new Date(examStr): null;
+if (!examDate || isNaN(examDate.getTime())) {
+errs.push("検視日時が入力されていません。推定死亡時刻の算出には検視日時が必要です。");
+}
+var foundStr = $("foundAt").value;
+var foundDate = foundStr? new Date(foundStr): null;
+if (foundDate && isNaN(foundDate.getTime())) foundDate = null;
+if (foundDate && examDate && foundDate.getTime() > examDate.getTime()) {
+warns.push("発見日時が検視日時より後になっています。入力値を確認してください。");
+}
+var lastSeenStr = $("lastSeenAt").value;
+var lastSeenDate = lastSeenStr? new Date(lastSeenStr): null;
+if (lastSeenDate && isNaN(lastSeenDate.getTime())) lastSeenDate = null;
+if (lastSeenDate && foundDate && lastSeenDate.getTime() > foundDate.getTime()) {
+warns.push("最終確認日時が発見日時より後になっています。死亡は最終確認より後・発見より前に起きたはずであり、このままでは区間が成立しません。最終確認日時・発見日時を確認してください（この区間による絞り込みは適用しません）。");
+}
+if (lastSeenDate && examDate && lastSeenDate.getTime() > examDate.getTime()) {
+warns.push("最終確認日時が検視日時より後になっています。入力値を確認してください（この区間による絞り込みは適用しません）。");
+}
+if (lastSeenDate && foundDate && lastSeenDate.getTime() === foundDate.getTime()) {
+warns.push("最終確認日時と発見日時が同時刻です。区間が一点になるため、入力値を確認してください。");
+}
+
+var items = []; // {name, finding, lo, hi, basisHtml}
+
+/* 体温 */
+var Tr = parseFloat($("rectalTemp").value);
+var Ta = parseFloat($("ambientTemp").value);
+var W = parseFloat($("weight").value);
+var f = parseFloat(radioVal("factor") || "1.0");
+var tempItem = null;
+var tempInputsGiven =!isNaN(Tr) ||!isNaN(Ta) ||!isNaN(W);
+if (!isNaN(Tr) &&!isNaN(Ta) &&!isNaN(W)) {
+if (W <= 0) { errs.push("体重の入力値が不正です。");}
+else {
+var h = henssge(Tr, Ta, W, f);
+if (h.ok) {
+var basis = "直腸温 <b>" + Tr.toFixed(1) + "℃</b>、環境温 <b>" + Ta.toFixed(1) + "℃</b>、体重 <b>" + W + "kg</b>、補正係数 <b>" + f + "</b>。" +
+"温度低下率 Q = (直腸温−環境温)／(37.2−環境温) = <b>" + h.Q.toFixed(3) + "</b>。" +
+"Henssgeの式より死後経過時間の中心値は <b>約" + fmtHours(h.t) + "</b>、95%許容限界 ±2.8時間を加えて範囲化しました。";
+if (h.early) basis += "直腸温が37.2℃に近く、死後ごく早期であることを示します。";
+if (Ta > 23) { warns.push("環境温が23℃を超えています。体温法の精度が低下するため、他の所見を重視してください。"); basis += "環境温が23℃を超えており、精度は低下します。";}
+tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体重 " + W + "kg ／ 補正係数 " + f, lo: h.lo, hi: h.hi, basis: basis};
+items.push(tempItem);
+} else {
+tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体重 " + W + "kg", lo: null, hi: null, basis: h.reason};
+items.push(tempItem);
+}
+}
+} else if (tempInputsGiven) {
+errs.push("体温による推定には、直腸温・環境温・体重の3項目すべてが必要です（未入力の項目があります）。体温法を用いない場合は、3項目すべてを空欄にしてください。");
+}
+
+/* 死斑 */
+var livorKey = radioVal("livor");
+if (livorKey && LIVOR[livorKey]) {
+var L = LIVOR[livorKey];
+items.push({ name: "死斑", finding: L.label, lo: L.lo, hi: L.hi, basis: L.basis});
+}
+/* 死後硬直 */
+var rigorKey = radioVal("rigor");
+if (rigorKey && RIGOR[rigorKey]) {
+var R = RIGOR[rigorKey];
+items.push({ name: "死後硬直", finding: R.label, lo: R.lo, hi: R.hi, basis: R.basis});
+}
+/* 角膜混濁 */
+var eyeKey = radioVal("eye") || "open";
+var corneaKey = radioVal("cornea");
+if (corneaKey && CORNEA[eyeKey] && CORNEA[eyeKey][corneaKey]) {
+var C = CORNEA[eyeKey][corneaKey];
+items.push({ name: "角膜混濁", finding: C.label, lo: C.lo, hi: C.hi, basis: CORNEA_BASIS});
+}
+
+/* 最終確認日時〜発見日時（生存確認区間 → 死後経過時間への換算） */
+var windowItem = null;
+var windowValid = false;
+var windowLoDeath = null, windowHiDeath = null;
+if (lastSeenDate && examDate && !isNaN(examDate.getTime()) && lastSeenDate.getTime() <= examDate.getTime() && (!foundDate || lastSeenDate.getTime() < foundDate.getTime()) && (!foundDate || foundDate.getTime() <= examDate.getTime())) {
+var hiPmiWindow = (examDate.getTime() - lastSeenDate.getTime()) / 3600000;
+var loPmiWindow = 0;
+windowLoDeath = lastSeenDate;
+windowHiDeath = foundDate || examDate;
+if (foundDate) {
+loPmiWindow = (examDate.getTime() - foundDate.getTime()) / 3600000;
+}
+var loW = Math.round(loPmiWindow * 100) / 100;
+var hiW = Math.round(hiPmiWindow * 100) / 100;
+var findingWindow = "最終確認 " + fmtDateTime(lastSeenDate) + (foundDate? " ／ 発見 " + fmtDateTime(foundDate): " ／ 発見日時未記入（上限は検視日時）");
+var basisWindow = "死亡は最終確認日時（<b>" + fmtDateTime(lastSeenDate) + "</b>）より後" + (foundDate? "、発見日時（<b>" + fmtDateTime(foundDate) + "</b>）より前": "") + "に起きたはずです。この死亡時刻の区間 <b>" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + "</b> を検視日時から逆算した死後経過時間に換算すると <b>" + fmtRange(loW, hiW) + "</b> となり、所見による推定と重ねて総合判定を絞り込みます。";
+windowItem = { name: "最終確認〜発見", finding: findingWindow, lo: loW, hi: hiW, basis: basisWindow, isWindow: true};
+items.push(windowItem);
+windowValid = true;
+}
+
+var ranged = items.filter(function (it) { return it.lo!== null;});
+var findingRanged = ranged.filter(function (it) { return!it.isWindow;});
+/* 最終確認区間と所見範囲の重なりを個別に判定（矛盾警告用） */
+var windowConflict = false;
+if (windowValid && findingRanged.length > 0) {
+var fLo = Math.max.apply(null, findingRanged.map(function (i) { return i.lo;}));
+var fHi = Math.min.apply(null, findingRanged.map(function (i) { return i.hi;}));
+/* 所見同士が既に矛盾している場合は全体の広がりで比較する */
+if (fLo > fHi) {
+fLo = Math.min.apply(null, findingRanged.map(function (i) { return i.lo;}));
+fHi = Math.max.apply(null, findingRanged.map(function (i) { return i.hi;}));
+}
+if (Math.max(fLo, windowItem.lo) > Math.min(fHi, windowItem.hi)) windowConflict = true;
+}
+if (findingRanged.length === 0 && errs.length === 0) {
+errs.push("推定に使える入力がありません。体温の3項目、または死斑・死後硬直・角膜混濁のいずれかの所見を入力してください。最終確認日時だけでは死亡推定は行えません（絞り込みにのみ使われます）。");
+}
+
+var errBox = $("errBox"), warnBox = $("warnBox");
+if (errs.length) {
+errBox.innerHTML = errs.map(function (e) { return "・" + e;}).join("<br />");
+errBox.classList.add("show");
+} else { errBox.classList.remove("show"); errBox.innerHTML = "";}
+if (warns.length) {
+warnBox.innerHTML = warns.map(function (w) { return "・" + w;}).join("<br />");
+warnBox.classList.add("show");
+} else { warnBox.classList.remove("show"); warnBox.innerHTML = "";}
+
+if (errs.length || findingRanged.length === 0) {
+$("result-panel").classList.remove("show");
+var wb0 = $("windowBox"); if (wb0) { wb0.classList.remove("show"); wb0.innerHTML = "";}
+state.computed = false; state.record = "";
+return;
+}
+
+/* 総合判定：範囲の重なり（積集合）。重ならない場合は全体の広がり＋矛盾警告 */
+var lo = Math.max.apply(null, ranged.map(function (i) { return i.lo;}));
+var hi = Math.min.apply(null, ranged.map(function (i) { return i.hi;}));
+var conflict = false;
+if (lo > hi) {
+conflict = true;
+lo = Math.min.apply(null, ranged.map(function (i) { return i.lo;}));
+hi = Math.max.apply(null, ranged.map(function (i) { return i.hi;}));
+}
+
+/* 推定死亡時刻 */
+var deathLatest = new Date(examDate.getTime() - lo * 3600 * 1000);
+var deathEarliest = new Date(examDate.getTime() - hi * 3600 * 1000);
+
+$("vPmi").innerHTML = "死後 <span class='num'>" + fmtRange(lo, hi) + "</span> 経過";
+$("vDeath").innerHTML = "推定死亡時刻：<span class='num'>" + fmtDateTime(deathEarliest) + "頃 〜 " + fmtDateTime(deathLatest) + "頃</span> の間";
+$("vAnchor").textContent = "基準：検視日時 " + fmtDateTime(examDate) + " から逆算" + (conflict? "／ 範囲が重ならない矛盾があるため、下記の拡大範囲で表示しています": "／ " + findingRanged.length + "件の手法・所見" + (windowValid? "＋最終確認〜発見区間": "") + "の範囲が重なる区間");
+
+var wBox = $("windowBox");
+if (windowValid) {
+wBox.classList.add("show");
+if (windowConflict) {
+wBox.classList.add("conflict-window");
+wBox.innerHTML = "<b>最終確認日時による区間との矛盾：</b>死亡は <b>" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + "</b> の間に起きたはずですが、所見から求めた推定死亡時刻の範囲はこの区間と重なりません。最終確認の経緯、発見日時、所見・日時の入力を確認してください。";
+} else {
+wBox.classList.remove("conflict-window");
+wBox.innerHTML = "<b>最終確認日時による絞り込みを適用しました：</b>死亡は <b>" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + "</b> の間に起きたはずであり、上記の推定死亡時刻は、所見による範囲をこの区間と重ねて絞り込んだ結果です。";
+}
+} else if (lastSeenDate) {
+wBox.classList.remove("show"); wBox.innerHTML = "";
+} else { wBox.classList.remove("show"); wBox.innerHTML = "";}
+
+var cBox = $("conflictBox");
+if (conflict) {
+var conflictMsg = "<b>注意：各範囲が重なりませんでした。</b>";
+if (windowConflict) conflictMsg += "特に、所見による推定死亡時刻が「最終確認日時〜発見日時」の区間（" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + "）と重なっていません。これは矛盾です。最終確認の経緯や日時・所見の入力誤りがないか確認してください。";
+conflictMsg += "環境温の変動、死後の体位変換、所見の判定誤差等の可能性もあります。総合範囲は全範囲の広がり（最小〜最大）で表示しています。各内訳を確認し、必要に応じて法医学者の鑑定を検討してください。";
+cBox.innerHTML = conflictMsg;
+cBox.classList.add("show");
+} else { cBox.classList.remove("show"); cBox.innerHTML = "";}
+
+/* バー表示 */
+var maxHi = Math.max(hi, Math.max.apply(null, ranged.map(function (i) { return i.hi;})));
+var scaleMax = maxHi <= 12? 12: maxHi <= 24? 24: maxHi <= 48? 48: maxHi <= 72? 72: maxHi <= 96? 96: maxHi <= 120? 120: 168;
+var barsHtml = "";
+items.forEach(function (it) {
+if (it.lo === null) {
+barsHtml += "<div class='bar-row'><span class='b-name'>" + it.name + "</span><span class='b-track'></span><span class='b-val'>適用外</span></div>";
+} else {
+var left = (it.lo / scaleMax) * 100, width = Math.max(1.2, ((it.hi - it.lo) / scaleMax) * 100);
+barsHtml += "<div class='bar-row'><span class='b-name'>" + it.name + "</span>" +
+"<span class='b-track'><span class='b-fill' style='left:" + left + "%;width:" + width + "%'></span></span>" +
+"<span class='b-val'>" + (Math.round(it.lo * 10) / 10) + "〜" + (Math.round(it.hi * 10) / 10) + "h</span></div>";
+}
+});
+var cLeft = (lo / scaleMax) * 100, cWidth = Math.max(1.2, ((hi - lo) / scaleMax) * 100);
+barsHtml += "<div class='bar-row combined'><span class='b-name'>総合判定</span>" +
+"<span class='b-track'><span class='b-fill' style='left:" + cLeft + "%;width:" + cWidth + "%'></span></span>" +
+"<span class='b-val'>" + (Math.round(lo * 10) / 10) + "〜" + (Math.round(hi * 10) / 10) + "h</span></div>";
+$("bars").innerHTML = barsHtml;
+$("axisNote").textContent = "横軸：死後経過時間（0〜" + scaleMax + "時間）";
+
+/* 根拠内訳 */
+$("basisList").innerHTML = items.map(function (it) {
+var rangeHtml = it.lo === null
+? "<span class='b-range na'>範囲算出不可</span>"
+: "<span class='b-range'>" + fmtRange(it.lo, it.hi) + "</span>";
+return "<div class='basis'><div class='b-head'><span class='b-name'>" + it.name + "</span>" + rangeHtml + "</div>" +
+"<p>所見：" + it.finding + "</p><p>" + it.basis + "</p></div>";
+}).join("");
+
+/* 記録テキスト */
+var lines = [];
+lines.push("");
+lines.push("作成日時：" + fmtDateTime(new Date()));
+lines.push("");
+lines.push("■ 記録情報");
+lines.push("最終確認日時：" + (lastSeenDate? fmtDateTime(lastSeenDate): "（未記入）"));
+lines.push("発見日時：" + (foundDate? fmtDateTime(foundDate): "（未記入）"));
+lines.push("検視日時：" + fmtDateTime(examDate));
+if (windowValid) lines.push("死亡が起き得る区間（最終確認〜発見）：" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath));
+lines.push("");
+lines.push("■ 入力所見と推定根拠");
+items.forEach(function (it) {
+lines.push("［" + it.name + "］所見：" + it.finding);
+lines.push("　推定範囲：" + (it.lo === null? "算出不可": fmtRange(it.lo, it.hi)));
+lines.push("　根拠：" + it.basis.replace(/<[^>]+>/g, ""));
+});
+if (!tempItem &&!tempInputsGiven) lines.push("［体温（Henssge法）］未入力のため不使用");
+if (!livorKey) lines.push("［死斑］所見なし（未入力）");
+if (!rigorKey) lines.push("［死後硬直］所見なし（未入力）");
+if (!corneaKey) lines.push("［角膜混濁］所見なし（未入力）");
+if (!lastSeenDate) lines.push("［最終確認日時］未入力のため絞り込み不使用");
+else if (!windowValid) lines.push("［最終確認日時］日時関係が成立しないため絞り込み不使用（本文の警告を確認）");
+lines.push("");
+lines.push("■ 総合判定");
+if (windowValid &&!windowConflict &&!conflict) lines.push("最終確認〜発見区間による絞り込み：死亡は " + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + " の間に起きたはずであり、所見による推定をこの区間と重ねて絞り込みました。");
+if (windowConflict) lines.push("（矛盾）所見による推定死亡時刻が、最終確認日時〜発見日時の区間（" + fmtDateTime(windowLoDeath) + " 〜 " + fmtDateTime(windowHiDeath) + "）と重なりません。最終確認の経緯・日時・所見の入力を確認してください。");
+if (conflict) lines.push("（注意）各範囲が重ならなかったため、全範囲の広がりを総合範囲としています。");
+lines.push("死後経過時間：" + fmtRange(lo, hi));
+lines.push("推定死亡時刻：" + fmtDateTime(deathEarliest) + "頃 〜 " + fmtDateTime(deathLatest) + "頃 の間");
+lines.push("（検視日時 " + fmtDateTime(examDate) + " を基準に逆算）");
+lines.push("");
+lines.push("■ 注意");
+lines.push("本推定は幅をもって示される参考値であり、死亡時刻を断定するものではありません。");
+lines.push("体温法は死亡時体温37.2℃・環境温一定を前提とする近似計算であり、死斑・死後硬直・角膜混濁の範囲は法医学の標準的な目安に基づく概略値です。");
+lines.push("最終確認日時が入力された場合、死亡はその日時より後・発見日時より前に起きたものとして区間と重ねて絞り込みます。重ならない場合は矛盾として扱います。");
+lines.push("環境条件・死因等により誤差が大きくなります。他の証拠と併せて判断し、必要に応じて法医学者の鑑定を受けてください。");
+state.record = lines.join("\n");
+$("recordText").textContent = state.record;
+
+$("result-panel").classList.add("show");
+state.computed = true;
+}
+
+/* ---------- 初期値：検視日時 = 現在時刻 ---------- */
+function setNow() {
+var d = new Date();
+var local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+$("examAt").value = local.toISOString().slice(0, 16);
+}
+setNow();
+
+$("calcBtn").addEventListener("click", function () {
+calculate();
+if (state.computed) {
+$("result-panel").scrollIntoView({ behavior: "smooth", block: "start"});
+}
+});
+
+/* 入力変更後は自動で再計算（計算済みの場合のみ） */
+document.addEventListener("change", function () { if (state.computed) calculate();});
+
+/* ---------- コピー・保存 ---------- */
+$("copyBtn").addEventListener("click", function () {
+if (!state.record) return;
+function done() {
+var el = $("copyDone");
+el.classList.add("show");
+setTimeout(function () { el.classList.remove("show");}, 3000);
+}
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(state.record).then(done, function () { fallback();});
+} else { fallback();}
+function fallback() {
+var ta = document.createElement("textarea");
+ta.value = state.record;
+ta.style.position = "fixed"; ta.style.opacity = "0";
+document.body.appendChild(ta);
+ta.select();
+try { document.execCommand("copy"); done();} catch (e) { /* 失敗時はテキスト表示から手動コピー可能 */}
+document.body.removeChild(ta);
+}
+});
+$("dlBtn").addEventListener("click", function () {
+if (!state.record) return;
+var blob = new Blob([state.record], { type: "text/plain;charset=utf-8"});
+var url = URL.createObjectURL(blob);
+var a = document.createElement("a");
+a.href = url;
+a.download = "死後経過時間推定記録.txt";
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+setTimeout(function () { URL.revokeObjectURL(url);}, 2000);
+});
+
+var bootReloadBtn = $("bootReloadBtn");
+if (bootReloadBtn) {
+bootReloadBtn.addEventListener("click", function () { location.reload();});
+}
+/* 起動完了：フォールバック用ウォッチドッグを解除 */
+window.__appBooted = true;
+if (window.__bootWatchdog) { clearTimeout(window.__bootWatchdog);}
+})();
+</script>
+</body>
+</html>
