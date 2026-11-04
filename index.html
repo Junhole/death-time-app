@@ -243,6 +243,22 @@ border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; backgroun
 .basis p { margin: 6px 0 0; font-size: 14.5px; color: var(--muted);}
 .basis p b { color: var(--ink);}
 
+.record-reset-row {
+display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+margin: 0 0 12px;
+}
+.record-reset-note { margin: 0; font-size: 13.5px; color: var(--muted); flex: 1 1 220px;}
+.reset-btn {
+min-height: 56px; padding: 10px 20px;
+font: inherit; font-size: 16.5px; font-weight: 900; letter-spacing:.02em;
+color: var(--danger); background: var(--panel);
+border: 2px solid var(--danger); border-radius: 8px; cursor: pointer;
+flex: 0 0 auto;
+}
+.reset-btn:active { opacity:.85;}
+.reset-btn:focus-visible { outline: 3px solid var(--danger); outline-offset: 2px;}
+.reset-btn.armed { background: var(--danger); color: var(--panel);}
+@media (max-width: 640px) {.reset-btn { width: 100%; flex: 1 1 100%;}}
 .record-box {
 background: var(--record-bg); color: var(--record-ink);
 border-radius: 10px; padding: 20px;
@@ -279,7 +295,7 @@ footer.page-foot p { margin: 4px 0;}
 
 @media print {
 body { background: #fff;}
-.calc-btn,.record-actions, header.page-head > .head-badges { display: none;}
+.calc-btn,.record-actions,.record-reset-row, header.page-head > .head-badges { display: none;}
 section.panel { box-shadow: none; break-inside: avoid;}
 }
 
@@ -471,6 +487,10 @@ if (f) f.className = "show";
 <div class="basis-list" id="basisList"></div>
 
 <h3 class="blk">検視記録テキスト</h3>
+<div class="record-reset-row">
+<p class="record-reset-note">全入力を消去し、次の検視のために初期状態に戻します。必要な記録は先にコピー／保存してください。</p>
+<button type="button" class="reset-btn" id="resetBtn">入力をリセット</button>
+</div>
 <div class="record-box">
 <h3>記録用テキスト（所見・根拠・注意書きを含む）</h3>
 <pre id="recordText"></pre>
@@ -901,6 +921,55 @@ a.click();
 document.body.removeChild(a);
 setTimeout(function () { URL.revokeObjectURL(url);}, 2000);
 });
+
+/* ---------- リセット（検視記録テキストの上） ---------- */
+var resetBtn = $("resetBtn");
+var resetArmed = false;
+var resetTimer = null;
+function disarmReset() {
+resetArmed = false;
+if (resetTimer) { clearTimeout(resetTimer); resetTimer = null;}
+if (resetBtn) { resetBtn.classList.remove("armed"); resetBtn.textContent = "入力をリセット";}
+}
+function doReset() {
+disarmReset();
+$("lastSeenAt").value = "";
+$("foundAt").value = "";
+$("rectalTemp").value = "";
+$("ambientTemp").value = "";
+function setRadio(name, val) {
+var els = document.querySelectorAll('input[name="' + name + '"]');
+for (var i = 0; i < els.length; i++) { els[i].checked = (els[i].value === val);}
+}
+setRadio("bodyType", "normal");
+setRadio("factor", "1.0");
+setRadio("livor", "");
+setRadio("rigor", "");
+setRadio("eye", "open");
+setRadio("cornea", "");
+setNow();
+var errBox2 = $("errBox"); errBox2.classList.remove("show"); errBox2.innerHTML = "";
+var warnBox2 = $("warnBox"); warnBox2.classList.remove("show"); warnBox2.innerHTML = "";
+var wb = $("windowBox"); if (wb) { wb.classList.remove("show"); wb.innerHTML = "";}
+var cb = $("conflictBox"); if (cb) { cb.classList.remove("show"); cb.innerHTML = "";}
+var cd = $("copyDone"); if (cd) cd.classList.remove("show");
+$("recordText").textContent = "";
+$("result-panel").classList.remove("show");
+state.computed = false; state.record = "";
+window.scrollTo({ top: 0, behavior: "smooth"});
+}
+if (resetBtn) {
+resetBtn.addEventListener("click", function () {
+if (!resetArmed) {
+resetArmed = true;
+resetBtn.classList.add("armed");
+resetBtn.textContent = "本当にリセットしますか？ もう一度押すと全入力を消去";
+resetTimer = setTimeout(disarmReset, 4000);
+return;
+}
+doReset();
+});
+}
 
 var bootReloadBtn = $("bootReloadBtn");
 if (bootReloadBtn) {
