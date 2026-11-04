@@ -111,11 +111,12 @@ border-radius: 4px; padding: 2px 8px; position: relative; top: -2px;
 }
 section.panel >.lead { margin: 0 0 16px; color: var(--muted); font-size: 14.5px;}
 
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;}
-.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;}
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px;}
+.grid3 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 14px;}
 @media (max-width: 640px) {
-.grid2,.grid3 { grid-template-columns: 1fr;}
+.grid2,.grid3 { grid-template-columns: minmax(0, 1fr);}
 }
+.field { min-width: 0;}
 .field label {
 display: block; font-weight: 700; font-size: 15px; margin-bottom: 6px;
 }
@@ -123,11 +124,26 @@ display: block; font-weight: 700; font-size: 15px; margin-bottom: 6px;
 .field input[type="text"],
 .field input[type="number"],
 .field input[type="datetime-local"] {
-width: 100%; min-height: 60px;
+display: block; width: 100%; min-width: 0; max-width: 100%; min-height: 60px;
 font: inherit; font-size: 19px; font-weight: 500;
 color: var(--ink); background: var(--panel-2);
 border: 2px solid var(--line-strong); border-radius: 8px;
 padding: 10px 14px;
+}
+/* 日時入力はブラウザ固有の最小幅が大きく、枠からはみ出しやすいので正規化する（iPhone/iPad等のタッチ端末では固有外観も外して幅を制御する） */
+@media (hover: none) and (pointer: coarse) {
+.field input[type="datetime-local"] {
+-webkit-appearance: none; appearance: none;
+}
+}
+.field input[type="datetime-local"]::-webkit-date-and-time-value {
+min-width: 0; text-align: left; margin: 0;
+}
+.field input[type="datetime-local"]::-webkit-datetime-edit {
+min-width: 0; padding: 0;
+}
+@media (max-width: 640px) {
+.field input[type="datetime-local"] { font-size: 17px; padding: 10px 12px;}
 }
 .field input:focus { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent);}
 .field > .hint { font-size: 13px; color: var(--muted); margin-top: 5px;}
