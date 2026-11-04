@@ -354,8 +354,8 @@ if (f) f.className = "show";
 <!-- 2. 体温 -->
 <section class="panel" aria-labelledby="h-temp">
 <h2 id="h-temp"><span class="step">2</span>体温による推定（Henssge法）</h2>
-<p class="lead">直腸温・環境温・体重と、着衣・環境の補正係数から死後経過時間を算出します（Henssgeのノモグラムの数式近似）。95%許容限界として±2.8時間を併せて範囲化します。</p>
-<div class="grid3">
+<p class="lead">直腸温・環境温・体型と、着衣・環境の補正係数から死後経過時間を算出します（Henssgeのノモグラムの数式近似）。体型は代表的な推定体重に換算して計算します。95%許容限界として±2.8時間を併せて範囲化します。</p>
+<div class="grid2">
 <div class="field">
 <label for="rectalTemp">直腸温 <span class="unit">（℃）</span></label>
 <input type="number" id="rectalTemp" inputmode="decimal" step="0.1" min="0" max="45" placeholder="例：30.5" />
@@ -365,10 +365,15 @@ if (f) f.className = "show";
 <input type="number" id="ambientTemp" inputmode="decimal" step="0.1" min="-20" max="45" placeholder="例：20.0" />
 <p class="hint">遺体周囲の気温。死後変動した場合はその旨を備考に記録してください。</p>
 </div>
-<div class="field">
-<label for="weight">体重 <span class="unit">（kg）</span></label>
-<input type="number" id="weight" inputmode="decimal" step="0.5" min="3" max="300" placeholder="例：65" />
 </div>
+<div class="subgroup">
+<div class="sg-title">体型</div>
+<div class="seg" role="radiogroup" aria-label="体型">
+<label class="opt"><input type="radio" name="bodyType" value="lean" /><span class="card"><span class="t">痩せ型</span><span class="d">約50kgとして計算</span></span></label>
+<label class="opt"><input type="radio" name="bodyType" value="normal" checked /><span class="card"><span class="t">普通</span><span class="d">約65kgとして計算</span></span></label>
+<label class="opt"><input type="radio" name="bodyType" value="obese" /><span class="card"><span class="t">肥満</span><span class="d">約85kgとして計算</span></span></label>
+</div>
+<p class="hint" style="font-size:13px;color:var(--muted);margin-top:6px;">現場で見た目から選んでください。選んだ体型は、Henssge法では上記の推定体重として扱い、結果と記録テキストにも体型で残ります。</p>
 </div>
 <div class="subgroup">
 <div class="sg-title">着衣・環境の補正係数（Henssge標準表）</div>
@@ -624,29 +629,34 @@ var items = []; // {name, finding, lo, hi, basisHtml}
 /* 体温 */
 var Tr = parseFloat($("rectalTemp").value);
 var Ta = parseFloat($("ambientTemp").value);
-var W = parseFloat($("weight").value);
+var BODY_TYPES = {
+lean: { label: "痩せ型", weight: 50 },
+normal: { label: "普通", weight: 65 },
+obese: { label: "肥満", weight: 85 }
+};
+var bodyKey = radioVal("bodyType") || "normal";
+var body = BODY_TYPES[bodyKey] || BODY_TYPES.normal;
+var W = body.weight;
+var bodyText = body.label + "（約" + W + "kgとして計算）";
 var f = parseFloat(radioVal("factor") || "1.0");
 var tempItem = null;
-var tempInputsGiven =!isNaN(Tr) ||!isNaN(Ta) ||!isNaN(W);
-if (!isNaN(Tr) &&!isNaN(Ta) &&!isNaN(W)) {
-if (W <= 0) { errs.push("体重の入力値が不正です。");}
-else {
+var tempInputsGiven =!isNaN(Tr) ||!isNaN(Ta);
+if (!isNaN(Tr) &&!isNaN(Ta)) {
 var h = henssge(Tr, Ta, W, f);
 if (h.ok) {
-var basis = "直腸温 <b>" + Tr.toFixed(1) + "℃</b>、環境温 <b>" + Ta.toFixed(1) + "℃</b>、体重 <b>" + W + "kg</b>、補正係数 <b>" + f + "</b>。" +
+var basis = "直腸温 <b>" + Tr.toFixed(1) + "℃</b>、環境温 <b>" + Ta.toFixed(1) + "℃</b>、体型 <b>" + bodyText + "</b>、補正係数 <b>" + f + "</b>。" +
 "温度低下率 Q = (直腸温−環境温)／(37.2−環境温) = <b>" + h.Q.toFixed(3) + "</b>。" +
 "Henssgeの式より死後経過時間の中心値は <b>約" + fmtHours(h.t) + "</b>、95%許容限界 ±2.8時間を加えて範囲化しました。";
 if (h.early) basis += "直腸温が37.2℃に近く、死後ごく早期であることを示します。";
 if (Ta > 23) { warns.push("環境温が23℃を超えています。体温法の精度が低下するため、他の所見を重視してください。"); basis += "環境温が23℃を超えており、精度は低下します。";}
-tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体重 " + W + "kg ／ 補正係数 " + f, lo: h.lo, hi: h.hi, basis: basis};
+tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体型 " + bodyText + " ／ 補正係数 " + f, lo: h.lo, hi: h.hi, basis: basis};
 items.push(tempItem);
 } else {
-tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体重 " + W + "kg", lo: null, hi: null, basis: h.reason};
+tempItem = { name: "体温（Henssge法）", finding: "直腸温 " + Tr.toFixed(1) + "℃ ／ 環境温 " + Ta.toFixed(1) + "℃ ／ 体型 " + bodyText, lo: null, hi: null, basis: h.reason};
 items.push(tempItem);
 }
-}
 } else if (tempInputsGiven) {
-errs.push("体温による推定には、直腸温・環境温・体重の3項目すべてが必要です（未入力の項目があります）。体温法を用いない場合は、3項目すべてを空欄にしてください。");
+errs.push("体温による推定には、直腸温・環境温の両方が必要です（未入力の項目があります）。体温法を用いない場合は、両方とも空欄にしてください。体型は選択されたものが計算に使われます。");
 }
 
 /* 死斑 */
@@ -705,7 +715,7 @@ fHi = Math.max.apply(null, findingRanged.map(function (i) { return i.hi;}));
 if (Math.max(fLo, windowItem.lo) > Math.min(fHi, windowItem.hi)) windowConflict = true;
 }
 if (findingRanged.length === 0 && errs.length === 0) {
-errs.push("推定に使える入力がありません。体温の3項目、または死斑・死後硬直・角膜混濁のいずれかの所見を入力してください。最終確認日時だけでは死亡推定は行えません（絞り込みにのみ使われます）。");
+errs.push("推定に使える入力がありません。直腸温・環境温（体温法）、または死斑・死後硬直・角膜混濁のいずれかの所見を入力してください。最終確認日時だけでは死亡推定は行えません（絞り込みにのみ使われます）。");
 }
 
 var errBox = $("errBox"), warnBox = $("warnBox");
