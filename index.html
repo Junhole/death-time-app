@@ -245,8 +245,9 @@ border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; backgroun
 
 .record-reset-row {
 display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-margin: 0 0 12px;
+margin: 22px 0 12px;
 }
+.record-reset-row + h3.blk { margin-top: 0;}
 .record-reset-note { margin: 0; font-size: 13.5px; color: var(--muted); flex: 1 1 220px;}
 .reset-btn {
 min-height: 56px; padding: 10px 20px;
@@ -486,11 +487,11 @@ if (f) f.className = "show";
 <h3 class="blk">推定根拠の内訳</h3>
 <div class="basis-list" id="basisList"></div>
 
-<h3 class="blk">検視記録テキスト</h3>
 <div class="record-reset-row">
 <p class="record-reset-note">全入力を消去し、次の検視のために初期状態に戻します。必要な記録は先にコピー／保存してください。</p>
 <button type="button" class="reset-btn" id="resetBtn">入力をリセット</button>
 </div>
+<h3 class="blk">検視記録テキスト</h3>
 <div class="record-box">
 <h3>記録用テキスト（所見・根拠・注意書きを含む）</h3>
 <pre id="recordText"></pre>
